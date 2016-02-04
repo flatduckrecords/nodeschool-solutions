@@ -1,14 +1,13 @@
 var bl   = require("bl");
 var http = require("http");
 
-module.exports = function (url, callback) {
-
-	http.get(process.argv[2], function(response) {		
+module.exports = function (url, index, callback) {	
+	http.get(url, function(response) {		
 		response.pipe(bl(function (err, data) { 
 			if(err){
 				return callback(err)
 			} else {
-				return callback(null, data)
+				return callback(null, {"index":index, "data": data})
 			}
 		}))
 	});
